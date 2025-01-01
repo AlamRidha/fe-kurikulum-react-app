@@ -2,18 +2,27 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import ErrorPage from "./Pages/errorpage.jsx";
+import LoginPage from "./Pages/login.jsx";
+import FormLogin from "./Components/Fragments/FormLogin.jsx";
+import AuthLayout from "./Components/Layouts/AuthLayout.jsx";
 
 // router
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Router Berhasil</div>,
+    element: <ErrorPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>
 );

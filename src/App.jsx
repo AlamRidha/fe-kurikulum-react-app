@@ -1,16 +1,12 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import LoginPage from "./Pages/login";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <p className="text-3xl font-bold underline text-center">Hello world</p>
+    <div className="flex justify-center min-h-screen items-center">
+      <div className="flex gap-x-4">
+        <LoginPage></LoginPage>
       </div>
-    </>
+    </div>
   );
 }
 
