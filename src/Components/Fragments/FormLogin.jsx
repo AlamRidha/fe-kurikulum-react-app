@@ -62,19 +62,6 @@ const FormLogin = () => {
         }
       });
     }
-    // const data = {
-    //   nip: e.target.nip.value,
-    //   password: e.target.password.value,
-    // };
-
-    // login(data, (status, res) => {
-    //   if (status) {
-    //     console.log("Respon data: ", res);
-    //     window.location.href = "/dashboard";
-    //   } else {
-    //     setLoginFailed(res);
-    //   }
-    // });
   };
 
   return (
