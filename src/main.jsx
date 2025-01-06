@@ -1,12 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import ErrorPage from "./Pages/errorpage.jsx";
 import LoginPage from "./Pages/login.jsx";
-import FormLogin from "./Components/Fragments/FormLogin.jsx";
-import AuthLayout from "./Components/Layouts/AuthLayout.jsx";
+import DashbordPage from "./Pages/dashboard.jsx";
 
 // router
 const router = createBrowserRouter([
@@ -18,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashbordPage />,
   },
 ]);
 
