@@ -55,10 +55,6 @@ const FormLogin = () => {
       </Button>
 
       {loginFailed && <Alert msg={loginFailed} statusMsg="Login Error!" />}
-
-      {/* {loginFailed && (
-        <p className="text-red-500 text-center mt-5">{loginFailed}</p>
-      )} */}
     </form>
   );
 };
