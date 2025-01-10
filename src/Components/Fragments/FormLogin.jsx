@@ -3,6 +3,7 @@ import InputForm from "../Elements/Input";
 import Button from "../Elements/Button";
 import { login } from "../../Services/auth.service";
 import Alert from "../Elements/Alerts/Alerts";
+import { useNavigate } from "react-router-dom";
 
 const FormLogin = () => {
   const [loginFailed, setLoginFailed] = useState("");
@@ -11,6 +12,7 @@ const FormLogin = () => {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,8 +57,8 @@ const FormLogin = () => {
     if (validateForm()) {
       login(formData, (status, res) => {
         if (status) {
-          console.log("Respon data: ", res);
-          window.location.href = "/dashboard";
+          // console.log("Respon data: ", res);
+          navigate("/dashboard");
         } else {
           setLoginFailed(res);
         }

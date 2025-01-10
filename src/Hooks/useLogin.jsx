@@ -1,29 +1,44 @@
-import { useEffect, useState } from "react";
-import { getUsername, logout } from "../Services/auth.service";
+import { useEffect } from "react";
+import { logout } from "../Services/auth.service";
+import { useSelector } from "react-redux";
+import { loginUser, userSelect } from "../redux/slices/userslice";
+import { useNavigate } from "react-router-dom";
+import store from "../redux/store";
+import { decodeDataJwt } from "../helper";
 
 export const useLogin = () => {
-  const [username, setUsername] = useState("");
+  // navigate
+  const navigate = useNavigate();
 
-  //   take username and store in localstorage
+  // get data user from store
+  const userData = useSelector(userSelect);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // check token, if token is set take the username
-    // if token not exist, user move to login page
     if (token) {
-      const userNameDecode = getUsername(token);
-
-      if (userNameDecode) {
-        setUsername(userNameDecode);
-      } else {
-        // if token is not valid, go to login page
-        logout();
-        window.location.href = "/login";
-      }
+      const dataUser = decodeDataJwt(token);
+      store.dispatch(loginUser(dataUser));
     } else {
-      window.location.href = "/login";
+      logout();
+      navigate("/login");
     }
-  }, []);
+  }, [navigate]);
 
-  return username;
+  //   if (!token) {
+  //     // if token not exist go to login page
+  //     logout();
+  //     navigate("/login");
+  //   } else if (!userData) {
+  //     // if data user not exist go to login page
+  //     console.log("User data is not available yet.");
+  //     logout();
+  //     navigate("/login");
+  //   } else {
+  //     console.log("Succesfully Login:");
+  //     // console.log("User logged in:", userData);
+  //   }
+  // }, [navigate, userData]);
+
+  return userData;
 };

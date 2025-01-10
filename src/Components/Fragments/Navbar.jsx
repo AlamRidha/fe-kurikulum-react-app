@@ -1,3 +1,4 @@
+import { useLogin } from "../../Hooks/useLogin";
 import Button from "../Elements/Button";
 
 const Navbar = (props) => {
@@ -6,6 +7,8 @@ const Navbar = (props) => {
     isDropDownOpenToogle = false,
     handleLogoutMenu = () => {},
   } = props;
+
+  const userData = useLogin();
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -86,13 +89,13 @@ const Navbar = (props) => {
                     className="text-sm text-gray-900 dark:text-white"
                     role="none"
                   >
-                    {/* {username} */}
+                    {userData?.nameUser}
                   </p>
                   <p
                     className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                     role="none"
                   >
-                    {/* {nip} */}
+                    {userData?.nip}
                   </p>
                 </div>
                 <ul className="py-1" role="none">

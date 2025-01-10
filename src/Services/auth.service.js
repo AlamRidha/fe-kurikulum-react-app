@@ -1,5 +1,7 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import store from "../redux/store";
+import { loginUser, logoutUser } from "../redux/slices/userslice";
+import { decodeDataJwt } from "../helper";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -7,11 +9,16 @@ export const login = async (data, callback) => {
   // take API from users
   try {
     const response = await axios.post(`${API_URL}/users/login`, data);
-    console.log(response.data);
 
     // take the token and save to localstorage
     const { token } = response.data;
     localStorage.setItem("token", token);
+
+    // Decode jwt token
+    const dataUser = decodeDataJwt(response.data.token);
+
+    // Dispatch login action to save user data in store
+    store.dispatch(loginUser(dataUser));
 
     // send callback if login true
     callback(true, response.data);
@@ -21,19 +28,8 @@ export const login = async (data, callback) => {
   }
 };
 
-// get username then decode
-export const getUsername = (token) => {
-  try {
-    const decoded = jwtDecode(token);
-    // console.log(decoded);
-    return decoded.nameUser;
-  } catch (error) {
-    console.error("Error decoding jwt ", error);
-    return null;
-  }
-};
-
 // function to logout
 export const logout = () => {
+  store.dispatch(logoutUser());
   localStorage.removeItem("token");
 };
