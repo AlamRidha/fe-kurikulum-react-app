@@ -1,5 +1,5 @@
 import DashboardLayout from "../Components/Layouts/DashboardLayout";
-import { useLogin } from "../Hooks/useLogin";
+import useLogin from "../Hooks/useLogin";
 
 const DashbordPage = () => {
   const userData = useLogin();

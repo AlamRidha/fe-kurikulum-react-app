@@ -1,4 +1,4 @@
-import { useLogin } from "../../Hooks/useLogin";
+import useLogin from "../../Hooks/useLogin";
 import Button from "../Elements/Button";
 
 const Navbar = (props) => {

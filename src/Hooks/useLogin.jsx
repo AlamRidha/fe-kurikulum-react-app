@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { logout } from "../Services/auth.service";
 import { useSelector } from "react-redux";
-import { loginUser, userSelect } from "../redux/slices/userslice";
+import { loginUser, userSelect } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import store from "../redux/store";
 import { decodeDataJwt } from "../helper";
 
-export const useLogin = () => {
+const useLogin = () => {
   // navigate
   const navigate = useNavigate();
 
@@ -14,8 +14,10 @@ export const useLogin = () => {
   const userData = useSelector(userSelect);
 
   useEffect(() => {
+    // take token from localstorage
     const token = localStorage.getItem("token");
 
+    // if token exist decode the token and dispathc login
     if (token) {
       const dataUser = decodeDataJwt(token);
       store.dispatch(loginUser(dataUser));
@@ -25,20 +27,7 @@ export const useLogin = () => {
     }
   }, [navigate]);
 
-  //   if (!token) {
-  //     // if token not exist go to login page
-  //     logout();
-  //     navigate("/login");
-  //   } else if (!userData) {
-  //     // if data user not exist go to login page
-  //     console.log("User data is not available yet.");
-  //     logout();
-  //     navigate("/login");
-  //   } else {
-  //     console.log("Succesfully Login:");
-  //     // console.log("User logged in:", userData);
-  //   }
-  // }, [navigate, userData]);
-
   return userData;
 };
+
+export default useLogin;
