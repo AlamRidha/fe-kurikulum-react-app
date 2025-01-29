@@ -2,12 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import InputForm from "../Elements/Input";
 import Button from "../Elements/Button";
 import Alert from "../Elements/Alerts/Alerts";
-import { createUser } from "../../Services/user.service";
+import { createUser, updateUser } from "../../Services/user.service";
 import ModalForm from "./Modal";
 
 const FormUser = (props) => {
-  const { onCreateUser, handleClose } = props;
+  const {
+    onSubmitSuccess,
+    handleClose,
+    initialData = null,
+    isEditing = false,
+  } = props;
   const [createFailed, setCreateFailed] = useState("");
+  const [updateFailed, setUpdateFailed] = useState("");
   // form for new user
   const [formData, setFormData] = useState({
     nip: "",
@@ -16,6 +22,7 @@ const FormUser = (props) => {
     email: "",
     noHp: "",
     bidangMataPelajaran: "",
+    ...initialData, // spread initial data if provided
   });
   const [errors, setErrors] = useState({});
 
@@ -43,7 +50,7 @@ const FormUser = (props) => {
       newError.nameUser = "Nama User Wajib Diisi";
     }
 
-    if (!formData.password || formData.password.length <= 5) {
+    if (!isEditing && (!formData.password || formData.password.length <= 5)) {
       newError.password = "Password Wajib Diisi dan Lebih dari 5 Karakter";
     }
 
@@ -63,23 +70,38 @@ const FormUser = (props) => {
     return Object.keys(newError).length === 0; // true if not found error
   };
 
-  // handle login function
+  // handle submit function
   const onSubmit = async (e) => {
     e.preventDefault();
 
     console.log("Data: ", formData);
     // check if validate is clear login
     if (validateForm()) {
-      createUser(formData, (status, res) => {
-        if (status) {
-          onCreateUser();
-          handleClose();
-          console.log("Respon data Berhasil: ", res);
-        } else {
-          console.log("Error", res);
-          setCreateFailed(res);
+      if (isEditing) {
+        const updateData = { ...formData };
+        if (!updateData.password) {
+          delete updateData.password;
         }
-      });
+
+        updateUser(formData.idUser, updateData, (status, res) => {
+          if (status) {
+            onSubmitSuccess();
+          } else {
+            setUpdateFailed(res);
+          }
+        });
+      } else {
+        createUser(formData, (status, res) => {
+          if (status) {
+            onSubmitSuccess();
+            handleClose();
+            console.log("Respon data Berhasil: ", res);
+          } else {
+            console.log("Error", res);
+            setCreateFailed(res);
+          }
+        });
+      }
     }
   };
 
@@ -154,8 +176,8 @@ const FormUser = (props) => {
           errors={errors.bidangMataPelajaran}
         />
 
-        <Button classname="bg-blue-600 w-full" type="submit">
-          Buat Akun
+        <Button classname="w-full bg-blue-600" type="submit">
+          {isEditing ? "Update User" : "Buat Akun"}
         </Button>
 
         {createFailed && (

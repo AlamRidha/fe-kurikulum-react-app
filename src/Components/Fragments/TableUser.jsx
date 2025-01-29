@@ -5,6 +5,7 @@ import { getAllData } from "../../Services/user.service";
 import Button from "../Elements/Button";
 import { getPaginationRange, usePagination } from "../../helper";
 import FormUser from "./FormUser";
+import SearchBar from "../Elements/SearchBar";
 
 const TableUser = () => {
   const userData = useLogin();
@@ -12,7 +13,9 @@ const TableUser = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [itemsPerPage] = useState(8);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
 
   // loadData
   const loadData = () => {
@@ -37,12 +40,6 @@ const TableUser = () => {
     loadData();
   }, [userData]);
 
-  // function edit
-  const handleEdit = (id) => {
-    const editData = data.filter((item) => item.idUser === id);
-    console.log("Ini Edit", id, "Cek data ", editData);
-  };
-
   // function delete
   const handleDelete = (id) => {
     console.log("Ini Hapus", id);
@@ -54,13 +51,30 @@ const TableUser = () => {
     setCurrentPage(1);
   };
 
+  // Toggle create
+  const handleCreateModal = () => setIsCreateModalOpen(!isCreateModalOpen);
+
   const handleUserCreated = () => {
     loadData();
-    setIsModalOpen(false);
+    setIsCreateModalOpen(false);
   };
 
-  // Open Modal
-  const handleOpen = () => setIsModalOpen(!isModalOpen);
+  //Toggle edit
+  const handleEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+  // get id
+  const handleEdit = (id) => {
+    const dataToEdit = data.find((item) => item.idUser === id);
+    setEditingUser(dataToEdit);
+    setIsEditModalOpen(true);
+  };
+
+  const onEditSuccess = () => {
+    loadData();
+    setIsEditModalOpen(false);
+  };
 
   // filter data with search
   const filteredData = data.filter((item) =>
@@ -100,52 +114,40 @@ const TableUser = () => {
     <>
       <div className="flex flex-col">
         {/* searching table */}
-        <div className="flex justify-end mb-4 pr-2 mt-2 w-full">
-          <label htmlFor="table-search" className="sr-only">
-            Search
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
-              <svg
-                className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="table-search"
-              className="block p-2 ps-10 text-md text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search for items"
-              value={searchQuery}
-              onChange={handleSearch}
-            />
-          </div>
+        <div className="flex justify-end w-full pr-2 mt-2 mb-4">
+          {/* Search Bar */}
+          <SearchBar
+            query={searchQuery}
+            onSearch={handleSearch}
+            placeholder="Cari Guru"
+          />
 
           <Button
-            classname="bg-blue-600 px-2 ml-2"
+            classname="px-2 ml-2 bg-blue-600"
             type="button"
-            onClick={handleOpen}
+            onClick={handleCreateModal}
           >
             Tambah User
           </Button>
         </div>
 
         {/* Modal for add new user */}
-        {isModalOpen && (
+        {isCreateModalOpen && (
           <FormUser
-            handleOpen={handleOpen}
-            handleClose={handleOpen}
-            onCreateUser={handleUserCreated}
-          ></FormUser>
+            handleClose={handleCreateModal}
+            onSubmitSuccess={handleUserCreated}
+            isEditing={false}
+          />
+        )}
+
+        {/* Modal for edit user */}
+        {isEditModalOpen && (
+          <FormUser
+            handleClose={handleEditModal}
+            initialData={editingUser}
+            isEditing={true}
+            onSubmitSuccess={onEditSuccess}
+          />
         )}
 
         {/* table */}
@@ -155,11 +157,11 @@ const TableUser = () => {
             currentItems.map((item, index) => (
               <tr
                 key={item.id || index}
-                className="border-b bg-gray-800 border-gray-700 hover:bg-gray-600 "
+                className="bg-gray-800 border-b border-gray-700 hover:bg-gray-600 "
               >
                 <th
                   scope="row"
-                  className="text-center font-medium whitespace-nowrap text-white w-14"
+                  className="font-medium text-center text-white whitespace-nowrap w-14"
                 >
                   {index + 1}
                 </th>
@@ -172,16 +174,16 @@ const TableUser = () => {
 
                 {/* cek if login is admin show the action button */}
                 {userData?.nip === "admin" && (
-                  <td className="flex items-center justify-center px-5 py-4 text-center h-full">
+                  <td className="flex items-center justify-center h-full px-5 py-4 text-center">
                     <Button
                       onClick={() => handleEdit(item.idUser)}
-                      classname="font-light mr-2 bg-blue-600 text-blue-600  dark:text-blue-100"
+                      classname="mr-2 font-light text-blue-600 bg-blue-600 dark:text-blue-100"
                     >
                       Edit
                     </Button>
                     <Button
                       onClick={() => handleDelete(item.idUser)}
-                      classname="font-light mr-5 bg-red-500 text-red-600 dark:text-red-100 hover:underline"
+                      classname="mr-5 font-light text-red-600 bg-red-500 dark:text-red-100 hover:underline"
                     >
                       Remove
                     </Button>
@@ -200,10 +202,10 @@ const TableUser = () => {
 
         {/* pagination */}
         <nav
-          className="flex items-center flex-column flex-wrap md:flex-row justify-center pt-4"
+          className="flex flex-wrap items-center justify-center pt-4 flex-column md:flex-row"
           aria-label="Table navigation"
         >
-          <span className="text-sm font-normal mx-3 text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+          <span className="block w-full mx-3 mb-4 text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
             Showing{" "}
             <span className="font-semibold text-gray-900 dark:text-white">
               {showingFrom} - {showingTo}
@@ -213,7 +215,7 @@ const TableUser = () => {
               {totalItems}
             </span>
           </span>
-          <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+          <ul className="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
             <li>
               <button
                 onClick={prevPage}
