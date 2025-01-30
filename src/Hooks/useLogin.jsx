@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { loginUser, userSelect } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import store from "../redux/store";
-import { decodeDataJwt } from "../helper";
+import { decodeDataJwt } from "../helper/decodejwt";
 
 const useLogin = () => {
   // navigate

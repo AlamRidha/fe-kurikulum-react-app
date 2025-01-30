@@ -1,7 +1,7 @@
 import axios from "axios";
 import store from "../redux/store";
 import { loginUser, logoutUser } from "../redux/slices/userSlice";
-import { decodeDataJwt } from "../helper";
+import { decodeDataJwt } from "../helper/decodejwt";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

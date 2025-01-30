@@ -3,7 +3,10 @@ import Table from "../Table";
 import useLogin from "../../Hooks/useLogin";
 import { getAllData } from "../../Services/user.service";
 import Button from "../Elements/Button";
-import { getPaginationRange, usePagination } from "../../helper";
+import {
+  getPaginationRange,
+  usePagination,
+} from "../../helper/paginationtable";
 import FormUser from "./FormUser";
 import SearchBar from "../Elements/SearchBar";
 
@@ -98,9 +101,11 @@ const TableUser = () => {
   const visiblePages = getPaginationRange(currentPage, totalPages);
 
   // change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const nextPage = () => hasNextPage && setCurrentPage((prev) => prev + 1);
-  const prevPage = () => hasPrevPage && setCurrentPage((prev) => prev - 1);
+  const handlePaginate = (pageNumber) => setCurrentPage(pageNumber);
+  const handleNextPage = () =>
+    hasNextPage && setCurrentPage((prev) => prev + 1);
+  const handlePrevPage = () =>
+    hasPrevPage && setCurrentPage((prev) => prev - 1);
 
   const myHeaders = [
     { key: "nip", label: "NIP" },
@@ -200,64 +205,18 @@ const TableUser = () => {
           )}
         </Table>
 
-        {/* pagination */}
-        <nav
-          className="flex flex-wrap items-center justify-center pt-4 flex-column md:flex-row"
-          aria-label="Table navigation"
-        >
-          <span className="block w-full mx-3 mb-4 text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
-            Showing{" "}
-            <span className="font-semibold text-gray-900 dark:text-white">
-              {showingFrom} - {showingTo}
-            </span>{" "}
-            of{" "}
-            <span className="font-semibold text-gray-900 dark:text-white">
-              {totalItems}
-            </span>
-          </span>
-          <ul className="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
-            <li>
-              <button
-                onClick={prevPage}
-                disabled={!hasPrevPage}
-                className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg ${
-                  !hasPrevPage
-                    ? "opacity-50 cursor-not-allowed"
-                    : "hover:bg-gray-100 hover:text-gray-700"
-                } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-              >
-                Previous
-              </button>
-            </li>
-            {visiblePages.map((pageNumber) => (
-              <li key={pageNumber}>
-                <button
-                  onClick={() => paginate(pageNumber)}
-                  className={`flex items-center justify-center px-3 h-8 leading-tight ${
-                    currentPage === pageNumber
-                      ? "text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
-                      : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                  } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-                >
-                  {pageNumber}
-                </button>
-              </li>
-            ))}
-            <li>
-              <button
-                onClick={nextPage}
-                disabled={!hasNextPage}
-                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg ${
-                  !hasNextPage
-                    ? "opacity-50 cursor-not-allowed"
-                    : "hover:bg-gray-100 hover:text-gray-700"
-                } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-              >
-                Next
-              </button>
-            </li>
-          </ul>
-        </nav>
+        <Table.PaginationTable
+          showingFrom={showingFrom}
+          showingTo={showingTo}
+          totalItems={totalItems}
+          onPrevPage={handlePrevPage}
+          hasPrevPage={hasPrevPage}
+          visiblePages={visiblePages}
+          onNextPage={handleNextPage}
+          hasNextPage={hasNextPage}
+          currentPage={currentPage}
+          onPaginate={handlePaginate}
+        />
       </div>
     </>
   );

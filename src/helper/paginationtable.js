@@ -1,15 +1,3 @@
-import { jwtDecode } from "jwt-decode";
-
-// decode jwt token
-export const decodeDataJwt = (token) => {
-  try {
-    return jwtDecode(token);
-  } catch (err) {
-    console.error("Error decoding token:", err);
-    return null;
-  }
-};
-
 // calculate pagination data and provide pagination utilities
 export const usePagination = (data, currentPage, itemsPerPage) => {
   // calculate index
