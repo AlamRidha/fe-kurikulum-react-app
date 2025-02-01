@@ -142,6 +142,7 @@ const TableUser = () => {
             handleClose={handleCreateModal}
             onSubmitSuccess={handleUserCreated}
             isEditing={false}
+            title="Tambah Data Guru"
           />
         )}
 
@@ -152,6 +153,7 @@ const TableUser = () => {
             initialData={editingUser}
             isEditing={true}
             onSubmitSuccess={onEditSuccess}
+            title="Edit Data Guru"
           />
         )}
 

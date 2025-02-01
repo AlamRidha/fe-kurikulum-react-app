@@ -11,6 +11,7 @@ const FormUser = (props) => {
     handleClose,
     initialData = null,
     isEditing = false,
+    title,
   } = props;
   const [createFailed, setCreateFailed] = useState("");
   const [updateFailed, setUpdateFailed] = useState("");
@@ -113,7 +114,7 @@ const FormUser = (props) => {
   }, []);
 
   return (
-    <ModalForm closeModal={handleClose}>
+    <ModalForm closeModal={handleClose} title={title}>
       <form onSubmit={onSubmit}>
         <InputForm
           label="NIP"
@@ -177,7 +178,7 @@ const FormUser = (props) => {
         />
 
         <Button classname="w-full bg-blue-600" type="submit">
-          {isEditing ? "Update User" : "Buat Akun"}
+          {isEditing ? "Update Akun" : "Buat Akun"}
         </Button>
 
         {createFailed && (
