@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
 import useLogin from "../../Hooks/useLogin";
-import { getAllData } from "../../Services/user.service";
+import { deleteUser, getAllData } from "../../Services/user.service";
 import Button from "../Elements/Button";
 import {
   getPaginationRange,
@@ -45,7 +45,20 @@ const TableUser = () => {
 
   // function delete
   const handleDelete = (id) => {
-    console.log("Ini Hapus", id);
+    const isConfirmed = window.confirm(
+      "Apakah Anda yakin ingin menghapus akun guru ini? "
+    );
+    if (!isConfirmed) return;
+
+    deleteUser(id, (status, res) => {
+      if (status) {
+        setData((prevData) => prevData.filter((item) => item.idUser !== id));
+        alert("Data berhasil dihapus");
+      } else {
+        console.error("Error menghapus data", res);
+        alert("Gagal menghapus data");
+      }
+    });
   };
 
   // search
@@ -192,7 +205,7 @@ const TableUser = () => {
                       onClick={() => handleDelete(item.idUser)}
                       classname="mr-5 font-light text-red-600 bg-red-500 dark:text-red-100 hover:underline"
                     >
-                      Remove
+                      Hapus
                     </Button>
                   </td>
                 )}

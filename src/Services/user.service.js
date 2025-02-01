@@ -48,8 +48,6 @@ export const updateUser = async (id, data, callback) => {
 export const deleteUser = async (id, callback) => {
   try {
     const response = await axios.delete(`${API_URL}/users/${id}`);
-    console.log("Data sudah terhapus", response.data);
-
     callback(true, response.data);
   } catch (error) {
     console.error("Error delete data", error);
