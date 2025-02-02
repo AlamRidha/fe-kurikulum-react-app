@@ -164,7 +164,7 @@ const TableUser = () => {
           <FormUser
             handleClose={handleEditModal}
             initialData={editingUser}
-            isEditing={true}
+            isEditing
             onSubmitSuccess={onEditSuccess}
             title="Edit Data Guru"
           />

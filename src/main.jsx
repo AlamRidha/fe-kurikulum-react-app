@@ -9,6 +9,7 @@ import UserListPage from "./Pages/user.jsx";
 import ReportPage from "./Pages/report.jsx";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
+import ProfilPelajar from "./Pages/profilpelajar.jsx";
 
 // router
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/report",
     element: <ReportPage />,
+  },
+  {
+    path: "/profilpelajar",
+    element: <ProfilPelajar />,
   },
 ]);
 
