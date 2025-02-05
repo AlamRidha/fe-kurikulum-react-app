@@ -177,7 +177,7 @@ const FormUser = (props) => {
           errors={errors.bidangMataPelajaran}
         />
 
-        <Button classname="w-full bg-blue-600" type="submit">
+        <Button classname="w-full text-white bg-blue-600" type="submit">
           {isEditing ? "Update Akun" : "Buat Akun"}
         </Button>
 

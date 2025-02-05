@@ -141,7 +141,7 @@ const TableUser = () => {
           />
 
           <Button
-            classname="px-2 ml-2 bg-blue-600"
+            classname="px-2 ml-2 text-white bg-blue-600"
             type="button"
             onClick={handleCreateModal}
           >

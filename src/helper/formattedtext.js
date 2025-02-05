@@ -30,3 +30,20 @@ export const formatDisplayText = (text, options = {}) => {
 
   return formattedText;
 };
+
+export const ensureArray = (value) => {
+  if (value === null || value === undefined) {
+    return [""];
+  }
+
+  if (typeof value === "string") {
+    const arr = value.split("\n").filter((item) => item.trim() !== "");
+    return arr.length === 0 ? [""] : arr;
+  }
+
+  if (Array.isArray(value)) {
+    return value.filter((item) => item.trim() !== "");
+  }
+
+  return [""];
+};

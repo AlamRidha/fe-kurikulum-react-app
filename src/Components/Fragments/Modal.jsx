@@ -17,7 +17,10 @@ const ModalForm = (props) => {
             <div className="p-6">
               <h1 className="mb-4 text-xl font-semibold">{title}</h1>
               {children}
-              <Button classname="w-full mt-2 bg-red-500" onClick={closeModal}>
+              <Button
+                classname="w-full mt-2 text-white bg-red-500"
+                onClick={closeModal}
+              >
                 {closeButton}
               </Button>
             </div>
