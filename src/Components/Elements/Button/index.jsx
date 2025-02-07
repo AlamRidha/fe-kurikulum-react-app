@@ -9,7 +9,7 @@ export default function Button(props) {
 
   return (
     <button
-      className={`${classname} h-10 px-6 font-semibold rounded-lg text-white items-center`}
+      className={`${classname} flex justify-center h-10 px-6 font-semibold rounded-lg items-center`}
       type={type}
       onClick={onClick}
     >

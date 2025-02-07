@@ -23,4 +23,4 @@ const Input = forwardRef((props, ref) => {
 
 export default Input;
 
-// className="text-sm border border-gray-300 rounded w-full py-2 px-3 text-slate-700 placeholder:opacity-80"
+// className="w-full px-3 py-2 text-sm border border-gray-300 rounded text-slate-700 placeholder:opacity-80"

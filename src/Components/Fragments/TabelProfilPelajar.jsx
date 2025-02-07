@@ -9,10 +9,7 @@ import {
 import { LiaVoteYeaSolid } from "react-icons/lia";
 import { filteredData } from "../../helper/filteredsearch";
 import ModalForm from "./Modal";
-import {
-  formatDisplayText,
-  formatSeparatedText,
-} from "../../helper/formattedtext";
+import { formatDisplayText } from "../../helper/formattedtext";
 import FormProfilPelajar from "./FormProfilPelajar";
 
 export const TabelProfilPelajar = () => {
@@ -26,12 +23,13 @@ export const TabelProfilPelajar = () => {
 
   const loadData = () => {
     getAllDataProfilPelajar((status, res) => {
-      if (status) {
+      if (status && Array.isArray(res)) {
         // set data here
         setData(res);
       } else {
         // error
         console.error("Error load data ", res);
+        setData([]);
       }
     });
   };
@@ -59,21 +57,22 @@ export const TabelProfilPelajar = () => {
 
   const handleShowItem = (id) => {
     const dataToShow = data.find((item) => item.idProfil === id);
-    const formattedData = {
-      ...dataToShow,
-      elemen: formatSeparatedText(dataToShow.elemen, "\n"),
-    };
-    console.log(formattedData);
-    setShowData(formattedData);
-    setIsShowModalOpen(true);
-    // getDataById(id, (status, res) => {
-    //   if (status) {
-    //     console.log(res);
-    //     setShowData(data);
-    //   } else {
-    //     console.error("Error response ", res);
-    //   }
-    // });
+    if (!dataToShow) return;
+
+    try {
+      const parsedElemen = JSON.parse(dataToShow.elemen); // Parse JSON string here!
+      const formattedData = {
+        ...dataToShow,
+        elemen: parsedElemen, // Use the parsed array
+      };
+      setShowData(formattedData);
+      setIsShowModalOpen(true);
+    } catch (error) {
+      console.error("Error parsing elemen:", error);
+      // Handle parsing error, e.g., display a message to the user
+      setShowData({ ...dataToShow, elemen: [] }); // Or some default value
+      setIsShowModalOpen(true);
+    }
   };
 
   const handleCreateModal = () => setIsCreateModalOpen(!isCreateModalOpen);
@@ -86,7 +85,22 @@ export const TabelProfilPelajar = () => {
   // get id
   const handleEdit = (id) => {
     const dataToEdit = data.find((item) => item.idProfil === id);
-    setEditingProfilPelajar(dataToEdit);
+
+    if (!dataToEdit) return;
+
+    const parsedElement =
+      typeof dataToEdit.elemen === "string"
+        ? JSON.parse(dataToEdit.elemen).map((item) =>
+            typeof item === "string" ? item.replace(/^"|"$/g, "") : item
+          )
+        : dataToEdit.elemen;
+
+    const formattedData = {
+      ...dataToEdit,
+      elemen: parsedElement,
+    };
+
+    setEditingProfilPelajar(formattedData);
     setIsEditModalOpen(true);
   };
 
@@ -132,7 +146,7 @@ export const TabelProfilPelajar = () => {
           />
 
           <Button
-            classname="px-2 ml-2 bg-blue-600"
+            classname="px-2 ml-2 text-white bg-blue-600"
             type="button"
             onClick={handleCreateModal}
           >
@@ -170,20 +184,26 @@ export const TabelProfilPelajar = () => {
                 <div className="mb-4">
                   <h3 className="mb-2 text-lg font-semibold">Dimensi</h3>
                   <p className="px-3 py-2 bg-gray-100 rounded-md">
-                    {showData.dimensi}
+                    {formatDisplayText(showData.dimensi, { uppercase: true })}
                   </p>
                 </div>
 
                 <div className="mb-4">
                   <h3 className="mb-2 text-lg font-semibold">Sub Elemen</h3>
                   <ol className="pl-5 ">
-                    {showData.elemen.map((item, index) => (
-                      <li key={index} className="mb-2">
-                        <p className="px-3 py-2 bg-gray-100 rounded-md">
-                          {formatDisplayText(item, { uppercase: true })}
-                        </p>
-                      </li>
-                    ))}
+                    {Array.isArray(showData.elemen) ? (
+                      showData.elemen.map((item, index) => (
+                        <li key={index} className="mb-2">
+                          <p className="px-3 py-2 bg-gray-100 rounded-md">
+                            {formatDisplayText(item, { capitalize: true })}
+                          </p>
+                        </li>
+                      ))
+                    ) : (
+                      <p className="px-3 py-2 bg-gray-100 rounded-md">
+                        Data tidak tersedia
+                      </p>
+                    )}
                   </ol>
                 </div>
               </div>
@@ -211,10 +231,13 @@ export const TabelProfilPelajar = () => {
                   {index + 1}
                 </th>
 
-                <td className="p-4 text-base font-medium">{item.dimensi}</td>
+                <td className="p-4 text-base font-medium">
+                  {console.log()}
+                  {formatDisplayText(item.dimensi, { capitalize: true })}
+                </td>
                 <td className="p-4 text-center ">
                   <Button
-                    classname="inline-flex px-2 duration-300 ease-in-out border text-slate-950 border-slate-950 bg-stone-100 hover:text-stone-50 hover:border-stone-50 hover:bg-slate-900"
+                    classname="inline-flex px-2 text-gray-800 duration-300 ease-in-out border border-slate-950 bg-stone-100 hover:text-stone-50 hover:border-stone-50 hover:bg-slate-900"
                     onClick={() => handleShowItem(item.idProfil)}
                   >
                     <LiaVoteYeaSolid className="w-6 h-6 mr-1" />
