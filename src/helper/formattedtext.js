@@ -37,12 +37,18 @@ export const ensureArray = (value) => {
   }
 
   if (typeof value === "string") {
-    const arr = value.split("\n").filter((item) => item.trim() !== "");
-    return arr.length === 0 ? [""] : arr;
+    const arr = value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+    return arr.length > 0 ? arr : [""];
   }
 
   if (Array.isArray(value)) {
-    return value.filter((item) => item.trim() !== "");
+    // Pastikan hanya item yang bukan null/undefined
+    return value
+      .map((item) => (typeof item === "string" ? item.trim() : item))
+      .filter(Boolean);
   }
 
   return [""];

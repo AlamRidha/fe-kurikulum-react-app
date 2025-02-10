@@ -9,7 +9,7 @@ import {
 import { LiaVoteYeaSolid } from "react-icons/lia";
 import { filteredData } from "../../helper/filteredsearch";
 import ModalForm from "./Modal";
-import { formatDisplayText } from "../../helper/formattedtext";
+import { ensureArray, formatDisplayText } from "../../helper/formattedtext";
 import FormProfilPelajar from "./FormProfilPelajar";
 
 export const TabelProfilPelajar = () => {
@@ -23,14 +23,7 @@ export const TabelProfilPelajar = () => {
 
   const loadData = () => {
     getAllDataProfilPelajar((status, res) => {
-      if (status && Array.isArray(res)) {
-        // set data here
-        setData(res);
-      } else {
-        // error
-        console.error("Error load data ", res);
-        setData([]);
-      }
+      setData(status ? ensureArray(res) : []);
     });
   };
 

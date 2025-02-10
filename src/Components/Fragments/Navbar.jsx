@@ -1,5 +1,6 @@
 import useLogin from "../../Hooks/useLogin";
 import Button from "../Elements/Button";
+import SchoolIcon from "../../assets/school.svg";
 
 const Navbar = (props) => {
   const {
@@ -39,7 +40,7 @@ const Navbar = (props) => {
               </svg>
             </button>
             <a href="https://github.com/" className="flex ms-2 md:me-24">
-              <img src="./school.svg" className="h-8 me-3" alt="School Logo" />
+              <img src={SchoolIcon} className="h-8 me-3" alt="School Logo" />
               <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                 SDN X Pekanbaru
               </span>
@@ -62,8 +63,7 @@ const Navbar = (props) => {
                   />
                 </button> */}
                 <Button
-                  classname="flex text-sm
-                 bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                  classname="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                   onClick={handleToogle}
                 >
                   <span className="sr-only">Open user menu</span>
@@ -110,7 +110,7 @@ const Navbar = (props) => {
                   </li>
                   <li>
                     <p
-                      className="block hover:cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem"
                       onClick={handleLogoutMenu}
                     >

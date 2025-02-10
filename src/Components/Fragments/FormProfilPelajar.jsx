@@ -5,6 +5,7 @@ import Button from "../Elements/Button";
 import Alert from "../Elements/Alerts/Alerts";
 import { createData, updateDataProfil } from "../../Services/ppelajar.service";
 import { GoNoEntry } from "react-icons/go";
+import { ensureArray } from "../../helper/formattedtext";
 
 const FormProfilPelajar = (props) => {
   const {
@@ -21,11 +22,7 @@ const FormProfilPelajar = (props) => {
   const [formData, setFormData] = useState({
     idProfil: initialData?.idProfil || "",
     dimensi: initialData?.dimensi || "",
-    elemen: Array.isArray(initialData?.elemen)
-      ? initialData.elemen
-      : initialData?.elemen
-      ? JSON.parse(initialData.elemen)
-      : [""],
+    elemen: ensureArray(initialData?.elemen),
   });
 
   const [errors, setErrors] = useState({});
