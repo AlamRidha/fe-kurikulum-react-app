@@ -6,10 +6,6 @@ import CardFase from "./CardFase";
 const Fase = () => {
   const [dataFase, setDataFase] = useState([]);
 
-  const handleAction = (id) => {
-    console.log("Fase id", id);
-  };
-
   const loadFase = () => {
     getAllFase((status, res) => {
       setDataFase(status ? ensureArray(res) : []);

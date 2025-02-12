@@ -7,15 +7,9 @@ import CardKelas from "./CardKelas";
 const Kelas = () => {
   const [dataKelas, setDataKelas] = useState([]);
   const { id } = useParams();
-  console.log(id);
-
-  const handleAction = (id) => {
-    console.log("Fase id", id);
-  };
 
   const loadKelas = () => {
     getAllKelas(id, (status, res) => {
-      console.log("ini data kelas", res);
       setDataKelas(status ? ensureArray(res) : []);
     });
   };
@@ -33,6 +27,7 @@ const Kelas = () => {
             title={fase.namaKelas}
             action="Buka"
             id={fase.idFase}
+            idKelas={fase.idKelas}
           />
         ))
       ) : (
