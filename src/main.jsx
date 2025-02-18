@@ -12,6 +12,7 @@ import store from "./redux/store.js";
 import ProfilPelajar from "./Pages/profilpelajar.jsx";
 import Fase from "./Components/Fragments/Fase/Fase.jsx";
 import Kelas from "./Components/Fragments/Kelas/Kelas.jsx";
+import MataPelajaran from "./Components/Fragments/MataPelajaran/MataPelajaran.jsx";
 
 // router
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "fase/:id",
         element: <Kelas />,
+      },
+      {
+        path: "fase/:id/kelas/mp/:idKelas",
+        element: <MataPelajaran />,
       },
     ],
   },
