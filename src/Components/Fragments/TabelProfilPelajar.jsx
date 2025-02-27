@@ -23,7 +23,8 @@ export const TabelProfilPelajar = () => {
 
   const loadData = () => {
     getAllDataProfilPelajar((status, res) => {
-      setData(status ? ensureArray(res) : []);
+      console.log("res", res);
+      setData(status ? ensureArray(res.data) : []);
     });
   };
 
@@ -225,7 +226,6 @@ export const TabelProfilPelajar = () => {
                 </th>
 
                 <td className="p-4 text-base font-medium">
-                  {console.log()}
                   {formatDisplayText(item.dimensi, { capitalize: true })}
                 </td>
                 <td className="p-4 text-center ">

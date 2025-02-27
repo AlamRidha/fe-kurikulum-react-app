@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import axiosInstace from "./auth";
 
 export const getAllDataProfilPelajar = async (callback) => {
   try {
-    const response = await axios.get(`${API_URL}/profilpelajar`);
+    const response = await axiosInstace.get(`/profilpelajar`);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -15,7 +13,7 @@ export const getAllDataProfilPelajar = async (callback) => {
 
 export const getDataById = async (id, callback) => {
   try {
-    const response = await axios.get(`${API_URL}/profilpelajar/${id}`);
+    const response = await axiosInstace.get(`/profilpelajar/${id}`);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -26,7 +24,7 @@ export const getDataById = async (id, callback) => {
 
 export const createData = async (data, callback) => {
   try {
-    const response = await axios.post(`${API_URL}/profilpelajar`, data);
+    const response = await axiosInstace.post(`/profilpelajar`, data);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -36,7 +34,7 @@ export const createData = async (data, callback) => {
 
 export const updateDataProfil = async (id, data, callback) => {
   try {
-    const response = await axios.put(`${API_URL}/profilpelajar/${id}`, data);
+    const response = await axiosInstace.put(`/profilpelajar/${id}`, data);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -46,7 +44,7 @@ export const updateDataProfil = async (id, data, callback) => {
 
 export const deleteDataProfilPelajar = async (id, callback) => {
   try {
-    const response = await axios.delete(`${API_URL}/profilpelajar/${id}`);
+    const response = await axiosInstace.delete(`/profilpelajar/${id}`);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);

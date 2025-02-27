@@ -1,14 +1,12 @@
-import axios from "axios";
 import store from "../redux/store";
 import { loginUser, logoutUser } from "../redux/slices/userSlice";
 import { decodeDataJwt } from "../helper/decodejwt";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import axiosInstace from "./auth";
 
 export const login = async (data, callback) => {
   // take API from users
   try {
-    const response = await axios.post(`${API_URL}/users/login`, data);
+    const response = await axiosInstace.post(`/users/login`, data);
 
     // take the token and save to localstorage
     const { token } = response.data;
