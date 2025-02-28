@@ -7,9 +7,12 @@ import {
 } from "../../../Services/main.service";
 import { useEffect, useState } from "react";
 import { formatNextYear } from "../../../helper/date";
+import useTitleBrowser from "../../../Hooks/useTitle";
 
 const MataPelajaran = () => {
-  const { idKelas } = useParams();
+  const { idKelas, id } = useParams();
+
+  useTitleBrowser("Mata Pelajaran");
 
   const [dataSemester, setDataSemester] = useState([]);
   const [idSemester, setIdSemester] = useState(null);
@@ -19,7 +22,7 @@ const MataPelajaran = () => {
   const loadSemester = () => {
     getSemester(idKelas, (status, res) => {
       if (status) {
-        setDataSemester(res);
+        setDataSemester(res.data);
       } else {
         console.error("Error response ", res);
         setDataSemester([]);
@@ -38,7 +41,7 @@ const MataPelajaran = () => {
 
     getAllMataPelajaran(semesterId, (status, res) => {
       if (status) {
-        setDataMataPelajaran(res);
+        setDataMataPelajaran(res.data);
       } else {
         console.error("Error response ", res);
         setDataMataPelajaran([]);
@@ -63,10 +66,13 @@ const MataPelajaran = () => {
               title={mp.namaMataPelajaran}
               tahunajaran={formatNextYear(mp.tahunAjaran)}
               action="Buka RPP"
+              idMp={mp.idMp}
+              idKelas={idKelas}
+              idFase={id}
             />
           ))
         ) : (
-          <CardMataPelajaran title="Pilih Semester" tahunajaran="-"  />
+          <CardMataPelajaran title="Pilih Semester" tahunajaran="-" />
         )}
       </div>
     </div>

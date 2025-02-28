@@ -3,14 +3,16 @@ import { getAllKelas } from "../../../Services/main.service";
 import { ensureArray } from "../../../helper/formattedtext";
 import { useParams } from "react-router-dom";
 import CardKelas from "./CardKelas";
+import useTitleBrowser from "../../../Hooks/useTitle";
 
 const Kelas = () => {
+  useTitleBrowser("Kelas");
   const [dataKelas, setDataKelas] = useState([]);
   const { id } = useParams();
 
   const loadKelas = () => {
     getAllKelas(id, (status, res) => {
-      setDataKelas(status ? ensureArray(res) : []);
+      setDataKelas(status ? ensureArray(res.data) : []);
     });
   };
 

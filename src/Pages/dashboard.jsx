@@ -1,7 +1,9 @@
 import DashboardLayout from "../Components/Layouts/DashboardLayout";
 import { Outlet } from "react-router-dom";
+import useTitleBrowser from "../Hooks/useTitle";
 
 const DashbordPage = () => {
+  useTitleBrowser("Dashboard");
   return (
     <DashboardLayout>
       {/* main page */}

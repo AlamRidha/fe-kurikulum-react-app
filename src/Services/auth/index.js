@@ -3,12 +3,12 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Make instace for axios
-const axiosInstace = axios.create({
+const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
 // Interceptor for request and response need authorization header
-axiosInstace.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
 
@@ -23,4 +23,4 @@ axiosInstace.interceptors.request.use(
   }
 );
 
-export default axiosInstace;
+export default axiosInstance;

@@ -1,12 +1,14 @@
 import store from "../redux/store";
 import { loginUser, logoutUser } from "../redux/slices/userSlice";
 import { decodeDataJwt } from "../helper/decodejwt";
-import axiosInstace from "./auth";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const login = async (data, callback) => {
   // take API from users
   try {
-    const response = await axiosInstace.post(`/users/login`, data);
+    const response = await axios.post(`${API_URL}/users/login`, data);
 
     // take the token and save to localstorage
     const { token } = response.data;
@@ -21,6 +23,7 @@ export const login = async (data, callback) => {
     // send callback if login true
     callback(true, response.data);
   } catch (err) {
+    console.log("erro");
     // send callback if login error
     callback(false, err.response?.data?.msg || err.message);
   }

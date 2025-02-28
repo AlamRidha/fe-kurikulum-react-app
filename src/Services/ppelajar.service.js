@@ -1,8 +1,8 @@
-import axiosInstace from "./auth";
+import axiosInstance from "./auth";
 
 export const getAllDataProfilPelajar = async (callback) => {
   try {
-    const response = await axiosInstace.get(`/profilpelajar`);
+    const response = await axiosInstance.get(`/profilpelajar`);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -13,7 +13,7 @@ export const getAllDataProfilPelajar = async (callback) => {
 
 export const getDataById = async (id, callback) => {
   try {
-    const response = await axiosInstace.get(`/profilpelajar/${id}`);
+    const response = await axiosInstance.get(`/profilpelajar/${id}`);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -24,7 +24,7 @@ export const getDataById = async (id, callback) => {
 
 export const createData = async (data, callback) => {
   try {
-    const response = await axiosInstace.post(`/profilpelajar`, data);
+    const response = await axiosInstance.post(`/profilpelajar`, data);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -34,7 +34,7 @@ export const createData = async (data, callback) => {
 
 export const updateDataProfil = async (id, data, callback) => {
   try {
-    const response = await axiosInstace.put(`/profilpelajar/${id}`, data);
+    const response = await axiosInstance.put(`/profilpelajar/${id}`, data);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);
@@ -44,7 +44,7 @@ export const updateDataProfil = async (id, data, callback) => {
 
 export const deleteDataProfilPelajar = async (id, callback) => {
   try {
-    const response = await axiosInstace.delete(`/profilpelajar/${id}`);
+    const response = await axiosInstance.delete(`/profilpelajar/${id}`);
     callback(true, response.data);
   } catch (error) {
     console.error("Error response ", error);

@@ -8,7 +8,7 @@ const Fase = () => {
 
   const loadFase = () => {
     getAllFase((status, res) => {
-      setDataFase(status ? ensureArray(res) : []);
+      setDataFase(status ? ensureArray(res.data) : []);
     });
   };
 

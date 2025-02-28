@@ -1,9 +1,9 @@
-import axiosInstace from "./auth";
+import axiosInstance from "./auth";
 
 // API GET DATA
 export const getAllData = async (callback) => {
   try {
-    const response = await axiosInstace.get(`/users`);
+    const response = await axiosInstance.get(`/users`);
     // console.log(response.data);
 
     callback(true, response.data);
@@ -17,7 +17,7 @@ export const getAllData = async (callback) => {
 // API CREATE DATA
 export const createUser = async (data, callback) => {
   try {
-    const response = await axiosInstace.post(`/users`, data);
+    const response = await axiosInstance.post(`/users`, data);
     console.log("Data yang masuk ", response.data);
 
     callback(true, response.data);
@@ -31,7 +31,7 @@ export const createUser = async (data, callback) => {
 // API UPDATE DATA
 export const updateUser = async (id, data, callback) => {
   try {
-    const response = await axiosInstace.put(`/users/${id}`, data);
+    const response = await axiosInstance.put(`/users/${id}`, data);
     console.log("Data sudah terupdate", response.data);
 
     callback(true, response.data);
@@ -45,7 +45,7 @@ export const updateUser = async (id, data, callback) => {
 // API DELETE DATA
 export const deleteUser = async (id, callback) => {
   try {
-    const response = await axiosInstace.delete(`/users/${id}`);
+    const response = await axiosInstance.delete(`/users/${id}`);
     callback(true, response.data);
   } catch (error) {
     console.error("Error delete data", error);
