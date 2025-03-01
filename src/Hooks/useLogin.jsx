@@ -20,7 +20,21 @@ const useLogin = () => {
     // if token exist decode the token and dispathc login
     if (token) {
       const dataUser = decodeDataJwt(token);
-      store.dispatch(loginUser(dataUser));
+      const currentTime = Math.floor(Date.now() / 1000); // get current time in second
+      const expiresIn = (dataUser.exp - currentTime) * 1000; // get expires time in millisecond
+
+      if (dataUser.exp < currentTime) {
+        logout();
+        navigate("/");
+      } else {
+        store.dispatch(loginUser(dataUser));
+
+        // set timeout to logout otomatic when token expired
+        setTimeout(() => {
+          logout();
+          navigate("/");
+        }, expiresIn);
+      }
     } else {
       logout();
       navigate("/");

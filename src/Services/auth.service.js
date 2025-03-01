@@ -20,6 +20,14 @@ export const login = async (data, callback) => {
     // Dispatch login action to save user data in store
     store.dispatch(loginUser(dataUser));
 
+    const currentTime = Math.floor(Date.now() / 1000);
+    const expiresIn = (dataUser.exp - currentTime) * 1000;
+
+    setTimeout(() => {
+      logout();
+      window.location.href = "/";
+    }, expiresIn);
+
     // send callback if login true
     callback(true, response.data);
   } catch (err) {
