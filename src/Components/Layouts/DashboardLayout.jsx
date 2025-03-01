@@ -12,7 +12,7 @@ const DashboardLayout = (props) => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   const toogleDropDown = () => {

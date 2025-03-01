@@ -23,7 +23,7 @@ const useLogin = () => {
       store.dispatch(loginUser(dataUser));
     } else {
       logout();
-      navigate("/login");
+      navigate("/");
     }
   }, [navigate]);
 

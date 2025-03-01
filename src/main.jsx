@@ -19,12 +19,12 @@ import CapaianPembelajaran from "./Components/Fragments/Kurikulum/CapaianPembela
 // router
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/*",
     element: <ErrorPage />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/login",
+    path: "/",
     element: <LoginPage />,
   },
   {

@@ -1,6 +1,8 @@
 import DashboardLayout from "../Components/Layouts/DashboardLayout";
+import useTitleBrowser from "../Hooks/useTitle";
 
 const ReportPage = () => {
+  useTitleBrowser("Report");
   return (
     <DashboardLayout>
       <div className="p-4 sm:ml-64">

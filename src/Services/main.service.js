@@ -50,15 +50,4 @@ export const getAllMataPelajaran = async (idSemester, callback) => {
   }
 };
 
-export const getCapaianPembelajaran = async (idMp, callback) => {
-  try {
-    const response = await axiosInstance.get(
-      `${API_URL}/kurikulum/${idMp}/capaian_pembelajaran`
-    );
-    console.log("response", response.data);
-    // callback(true, response.data);
-  } catch (error) {
-    console.error("Error response ", error);
-    callback(false, error.message);
-  }
-};
+
