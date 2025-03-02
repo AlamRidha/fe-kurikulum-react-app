@@ -71,7 +71,7 @@ const TableCapaianPembelajaran = () => {
   // Toggle create
   const handleCreateModal = () => setIsCreateModalOpen(!isCreateModalOpen);
 
-  const handleUserCreated = () => {
+  const handleDataCreated = () => {
     loadData();
     setIsCreateModalOpen(false);
   };
@@ -171,7 +171,7 @@ const TableCapaianPembelajaran = () => {
         {isCreateModalOpen && (
           <FormCapaianPembelajaran
             handleClose={handleCreateModal}
-            onSubmitSuccess={handleUserCreated}
+            onSubmitSuccess={handleDataCreated}
             isEditing={false}
             title="Tambah Data Capaian Pembelajaran"
             idMp={idMp}

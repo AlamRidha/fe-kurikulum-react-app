@@ -121,7 +121,11 @@ const FormCapaianPembelajaran = (props) => {
         </Button>
 
         {createFailed && (
-          <Alert msg={createFailed} statusMsg="Create User Error!" />
+          <Alert msg={createFailed} statusMsg="Buat Data Gagal!" />
+        )}
+
+        {updateFailed && (
+          <Alert msg={updateFailed} statusMsg="Update Data Gagal!" />
         )}
       </form>
     </ModalForm>
