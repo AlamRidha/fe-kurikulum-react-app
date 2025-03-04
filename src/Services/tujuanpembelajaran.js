@@ -21,6 +21,7 @@ export const createTujuanPembelajaran = async (idMp, data, callback) => {
 
     callback(true, response.data);
   } catch (error) {
+    console.log("eror", error);
     callback(false, error.message);
   }
 };

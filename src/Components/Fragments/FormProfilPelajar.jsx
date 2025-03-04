@@ -138,7 +138,7 @@ const FormProfilPelajar = (props) => {
 
         <Button
           type="button"
-          classname="mt-2 text-purple-800 bg-green-500"
+          classname="mt-2 text-white bg-green-700"
           onClick={addElemenField}
         >
           + Tambah Elemen

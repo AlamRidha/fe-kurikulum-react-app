@@ -26,7 +26,7 @@ const FormTujuanPembelajaran = (props) => {
   const [updateFailed, setUpdateFailed] = useState("");
   // form for new user
   const [formData, setFormData] = useState({
-    elemen_capaian: "",
+    idCp: "",
     tujuan_pembelajaran: "",
     ...initialData, // spread initial data if provided
   });
@@ -36,9 +36,14 @@ const FormTujuanPembelajaran = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    let parsedValue = value;
+    if (name === "idCp") {
+      parsedValue = parseInt(value, 10);
+    }
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: parsedValue,
     }));
 
     // delete error when user write something
@@ -48,23 +53,13 @@ const FormTujuanPembelajaran = (props) => {
         [name]: "",
       }));
     }
-    // const { name, value } = e.target;
-    // setFormData({
-    //   ...formData,
-    //   [name]: value,
-    // });
-
-    // setErrors({
-    //   ...errors,
-    //   [name]: "", // delete error when user write something
-    // });
   };
 
   // check form is empty or not?
   const validateForm = () => {
     const newError = {};
-    if (!formData.elemen_capaian) {
-      newError.elemen_capaian = "Elemen Capaian Wajib Dipilih";
+    if (!formData.idCp) {
+      newError.idCp = "Elemen Capaian Wajib Dipilih";
     }
 
     if (!formData.tujuan_pembelajaran) {
@@ -95,27 +90,24 @@ const FormTujuanPembelajaran = (props) => {
           }
         );
       } else {
-        await createTujuanPembelajaran(
-          idMataPelajaran,
-          formData,
-          (status, res) => {
-            if (status) {
-              onSubmitSuccess();
-              handleClose();
-            } else {
-              setCreateFailed(res);
-            }
+        await createTujuanPembelajaran(idMp, formData, (status, res) => {
+          if (status) {
+            onSubmitSuccess();
+            handleClose();
+          } else {
+            console.log("Error", res);
+            setCreateFailed(res);
           }
-        );
+        });
       }
     }
   };
 
   // focusing to form when page is first rendered
-  const elemen_capaian = useRef(null);
+  const idCp = useRef(null);
 
   useEffect(() => {
-    elemen_capaian.current.focus();
+    idCp.current.focus();
   }, []);
 
   const fetchCapaianPembelajaran = async () => {
@@ -137,33 +129,33 @@ const FormTujuanPembelajaran = (props) => {
       <form onSubmit={onSubmit}>
         <div className="mb-4">
           <label
-            htmlFor="elemen_capaian"
+            htmlFor="idCp"
             className="block mb-2 text-sm font-medium text-white"
           >
             Pilih Elemen Capaian Pembelajaran
           </label>
           <select
-            id="elemen_capaian"
-            name="elemen_capaian"
-            value={formData.elemen_capaian}
+            id="idCp"
+            name="idCp"
+            value={formData.idCp}
             onChange={handleChange}
-            ref={elemen_capaian}
+            ref={idCp}
             className={`bg-gray-50 border text-sm rounded-lg block w-full p-2.5 
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
               dark:text-white focus:ring-blue-500 focus:border-blue-500
-              ${errors.elemen_capaian ? "border-red-500" : "border-gray-300"}`}
+              ${errors.idCp ? "border-red-500" : "border-gray-300"}`}
           >
             <option value="" hidden>
               Pilih Elemen Capaian Pembelajaran
             </option>
             {dataCapaianPembelajaran.map((item) => (
-              <option key={item.idCp} value={item.elemen_capaian}>
+              <option key={item.idCp} value={item.idCp}>
                 {item.elemen}
               </option>
             ))}
           </select>
-          {errors.elemen_capaian && (
-            <p className="mt-1 text-sm text-red-500">{errors.elemen_capaian}</p>
+          {errors.idCp && (
+            <p className="mt-1 text-sm text-red-500">{errors.idCp}</p>
           )}
         </div>
 

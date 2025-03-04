@@ -30,10 +30,15 @@ const TableCapaianPembelajaran = () => {
         // grouped data by elemen capaian
         const groupedData = (data) => {
           return data.reduce((acc, item) => {
-            if (!acc[item.elemen_capaian]) {
-              acc[item.elemen_capaian] = [];
+            const namaCapaian = item.capaian_pembelajaran
+              ? item.capaian_pembelajaran.elemen
+              : `ID ${item.idCp}`;
+
+            if (!acc[namaCapaian]) {
+              acc[namaCapaian] = [];
             }
-            acc[item.elemen_capaian].push(item);
+
+            acc[namaCapaian].push(item);
             return acc;
           }, {});
         };
