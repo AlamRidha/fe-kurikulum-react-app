@@ -89,7 +89,7 @@ const Navbar = (props) => {
                     className="text-sm text-gray-900 dark:text-white"
                     role="none"
                   >
-                    {userData?.nameUser}
+                    Hello, {userData?.nameUser} !
                   </p>
                   <p
                     className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
