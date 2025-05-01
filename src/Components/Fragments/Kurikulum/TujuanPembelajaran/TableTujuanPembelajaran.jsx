@@ -6,11 +6,9 @@ import {
 } from "../../../../Services/tujuanpembelajaran";
 import Button from "../../../Elements/Button";
 import FormTujuanPembelajaran from "./FormTujuanPembelajaran";
-import { formatDisplayText } from "../../../../helper/formattedtext";
-import ModalForm from "../../Modal";
 import Table from "../../../Table";
 
-const TableCapaianPembelajaran = () => {
+const TableTujuanPembelajaran = () => {
   const { idMp } = useParams();
 
   const [data, setData] = useState([]);
@@ -239,4 +237,4 @@ const TableCapaianPembelajaran = () => {
   );
 };
 
-export default TableCapaianPembelajaran;
+export default TableTujuanPembelajaran;
