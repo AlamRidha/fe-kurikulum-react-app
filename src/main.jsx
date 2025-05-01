@@ -16,6 +16,7 @@ import MataPelajaran from "./Components/Fragments/MataPelajaran/MataPelajaran.js
 import Kurikulum from "./Components/Fragments/Kurikulum/Kurikulum.jsx";
 import CapaianPembelajaran from "./Components/Fragments/Kurikulum/CapaianPembelajaran/CapaianPembelajaran.jsx";
 import TujuanPembelajaran from "./Components/Fragments/Kurikulum/TujuanPembelajaran/TujuanPembelajaran.jsx";
+import AlurTujuanPembelajaran from "./Components/Fragments/Kurikulum/AlurTujuanPembelajaran/AlurTujuanPembelajaran.jsx";
 
 // router
 const router = createBrowserRouter([
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "fase/:id/kelas/mp/:idKelas/kurikulum/:idMp/tp",
         element: <TujuanPembelajaran />,
+      },
+      {
+        path: "fase/:id/kelas/mp/:idKelas/kurikulum/:idMp/atp",
+        element: <AlurTujuanPembelajaran />,
       },
     ],
   },
