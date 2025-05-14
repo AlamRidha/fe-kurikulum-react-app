@@ -8,7 +8,6 @@ import Button from "../../Elements/Button";
 import SearchBar from "../../Elements/SearchBar";
 import Table from "../../Table";
 import { filteredData } from "../../../helper/filteredsearch";
-import { LiaVoteYeaSolid } from "react-icons/lia";
 import FormDataBuku from "./FormDataBuku";
 import { FaLink } from "react-icons/fa";
 
@@ -62,21 +61,7 @@ const TableBuku = () => {
   const handleEdit = (id) => {
     const dataToEdit = data.find((item) => item.idBuku === id);
 
-    if (!dataToEdit) return;
-
-    const parsedElement =
-      typeof dataToEdit.elemen === "string"
-        ? JSON.parse(dataToEdit.elemen).map((item) =>
-            typeof item === "string" ? item.replace(/^"|"$/g, "") : item
-          )
-        : dataToEdit.elemen;
-
-    const formattedData = {
-      ...dataToEdit,
-      elemen: parsedElement,
-    };
-
-    setEditingDataBuku(formattedData);
+    setEditingDataBuku(dataToEdit);
     setIsEditModalOpen(true);
   };
 
