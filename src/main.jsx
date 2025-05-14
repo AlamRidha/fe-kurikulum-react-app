@@ -18,6 +18,7 @@ import CapaianPembelajaran from "./Components/Fragments/Kurikulum/CapaianPembela
 import TujuanPembelajaran from "./Components/Fragments/Kurikulum/TujuanPembelajaran/TujuanPembelajaran.jsx";
 import AlurTujuanPembelajaran from "./Components/Fragments/Kurikulum/AlurTujuanPembelajaran/AlurTujuanPembelajaran.jsx";
 import AsesmenPembelajaran from "./Components/Fragments/Kurikulum/Asesmen/AsesmenPembelajaran.jsx";
+import ModulPembelajaran from "./Components/Fragments/Kurikulum/ModulPembelajaran/ModulPembelajaran.jsx";
 
 // router
 const router = createBrowserRouter([
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "fase/:id/kelas/mp/:idKelas/kurikulum/:idMp/asesmen",
         element: <AsesmenPembelajaran />,
+      },
+      {
+        path: "fase/:id/kelas/mp/:idKelas/kurikulum/:idMp/modulp",
+        element: <ModulPembelajaran />,
       },
     ],
   },
