@@ -20,6 +20,7 @@ import AlurTujuanPembelajaran from "./Components/Fragments/Kurikulum/AlurTujuanP
 import AsesmenPembelajaran from "./Components/Fragments/Kurikulum/Asesmen/AsesmenPembelajaran.jsx";
 import ModulPembelajaran from "./Components/Fragments/Kurikulum/ModulPembelajaran/ModulPembelajaran.jsx";
 import BukuGuruPage from "./Pages/bukuguru.jsx";
+import DokumenKurikulumPage from "./Pages/dokumenkurikulum.jsx";
 
 // router
 const router = createBrowserRouter([
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
         element: <ModulPembelajaran />,
       },
     ],
+  },
+  {
+    path: "/dokumenkurikulum",
+    element: <DokumenKurikulumPage />,
   },
   {
     path: "/bukuguru",
